@@ -1,0 +1,76 @@
+asyncapi: 2.3.0
+info:
+  title: Order Service
+  version: 1.0.0
+  description: This service is in charge of processing order creation
+channels:
+  orderSupplier:
+    subscribe:
+      message:
+        $ref: '#/components/messages/OrderEvent'
+  paymentEventConsumer:
+    publish:
+      message:
+        $ref: '#/components/messages/PaymentEvent'
+components:
+  messages:
+    OrderEvent:
+      payload:
+        type: object
+        properties:
+          eventId:
+            type: string
+            description: Ramdon UUID
+          eventDate:
+            type: string
+            format: date
+            description: Date event creation
+          orderRequestDto:
+            type: object
+            properties:
+              userId:
+                type: integer
+                description: Id of the user
+              productId:
+                type: integer
+                description: Id of the product
+              amount:
+                type: integer
+                description: Price of the product
+              orderId:
+                type: integer
+                description: Id of the order
+          orderStatus:
+            type: string
+            enum:
+              - ORDER_CREATED
+              - ORDER_COMPLETED
+              - ORDER_CANCELLED
+    PaymentEvent:
+      payload:
+        type: object
+        properties:
+          eventId:
+            type: string
+            description: Ramdon UUID
+          eventDate:
+            type: string
+            format: date
+            description: Date event creation
+          paymentRequestDto:
+            type: object
+            properties:
+              orderId:
+                type: integer
+                description: Id of the order
+              userId:
+                type: integer
+                description: Id of the user
+              amount:
+                type: integer
+                description: Price of the product
+          paymentStatus:
+            type: string
+            enum:
+              - PAYMENT_COMPLETED
+              - PAYMENT_FAILED
