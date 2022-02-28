@@ -14,7 +14,7 @@ public class OrderPublisherConfig {
 
     @Bean
     public Sinks.Many<OrderEvent> orderSkins() {
-        //TODO review how that is works
+        //TODO review how that works
         return Sinks.many().multicast().onBackpressureBuffer();
     }
 

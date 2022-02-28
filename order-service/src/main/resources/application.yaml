@@ -10,6 +10,5 @@ spring:
           destination: payment-event
 
 
-
 server:
   port: 8081
